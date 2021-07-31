@@ -8,6 +8,7 @@ tl.title("Bataille navale")
 tl.hideturtle()
 tl.bgpic("fond_ecran.png")
 tl.update()
+
 """
 # création du background avant d'effectuer une capture écran
 # axe des abscisses
@@ -109,6 +110,7 @@ tl.pendown()
 tl.circle(150)
 tl.penup()
 """
+
 print("\n############################")
 print("      BATAILLE NAVALE")
 print("############################\n")
@@ -118,55 +120,57 @@ print("Vous allez placer 3 bateaux dans l'océan indien. Vous devez choisir la p
       "également positionner 3 bateaux dans l'océan indien, et il vous faudra trouver leurs coordonnées à l'aide d'obus."
       " Vous disposez au total de 20 obus.")
 
-# on initialise les scores du joueur et de l'ordinateur
+# we initialize the scores of player one and the computer
 score_ordinateur = 0
 score_joueur = 0
 
-# on initialise les coordonnées des tirs du joueur
+# we initialize the list of coordinates of player one's hits
 liste_bon_tir_joueur = []
 liste_mauvais_tir_joueur = []
 liste_touche_bateaux_joueur = [0, 0, 0]
 
-# on initialise les coordonnées des tirs de l'ordinateur
+# we initialize the list of coordinates of the computer's hits
 liste_bon_tir_ordinateur = []
 liste_mauvais_tir_ordinateur = []
 liste_touche_bateaux_ordinateur = [0, 0, 0]
 
-# on définit la position du bateau de l'ordinateur
+# we define positions for the 3 computer's boats
 liste_coordonnees_bateaux_ordinateur = fn.definir_position_bateaux_ordinateur()
 
-# on définit la position des bateaux du joueur
+# development mode
+# for i in range(3):
+    # fn.afficher_bateau(liste_coordonnees_bateaux_ordinateur[i])
+
+# we define positions for the 3 player's boats and show them
 liste_coordonnees_bateaux_joueur = [[], [], []]
 for i in range(3):
     print("\n=== Vous allez définir la position de votre bateau numéro", i + 1, "===")
     liste_coordonnees_bateaux_joueur[i] = fn.definir_position_bateau_joueur()
 
-# on affiche les bateaux du joueur à l'écran
 for i in range(3):
     fn.afficher_bateau(liste_coordonnees_bateaux_joueur[i])
 
-#afficher_bateau(liste_coordonnees_bateaux_ordinateur)
-
-# la partie se joue en 20 tirs
+# the game lasts 20 hits
 for i in range(20):
-    # on demande au joueur la position de tir
+    # we ask player one the coordinates of the next hit
     (xtir, ytir) = fn.demander_joueur_position_tir()
 
-    # le joueur tire et on affiche ses résultats
+    # player one hits and we print the results
     (score_joueur, liste_bon_tir_joueur, liste_mauvais_tir_joueur, liste_touche_bateaux_ordinateur, liste_touche_bateaux_joueur) = \
         fn.joueur_tire(xtir, ytir, score_joueur, liste_bon_tir_joueur, liste_mauvais_tir_joueur, liste_coordonnees_bateaux_ordinateur, liste_touche_bateaux_ordinateur, liste_coordonnees_bateaux_joueur, liste_touche_bateaux_joueur)
     fn.afficher_resultats_tir_joueur(score_joueur, liste_bon_tir_joueur, liste_mauvais_tir_joueur)
 
-    # l'ordinateur tire et on affiche ses résultats
+    # the compute hits and we print the results
     (score_ordinateur, liste_bon_tir_ordinateur, liste_mauvais_tir_ordinateur, liste_touche_bateaux_joueur, liste_touche_bateaux_ordinateur) = \
         fn.ordinateur_tire(score_ordinateur, liste_bon_tir_ordinateur, liste_mauvais_tir_ordinateur, liste_coordonnees_bateaux_joueur, liste_touche_bateaux_joueur, liste_coordonnees_bateaux_ordinateur, liste_touche_bateaux_ordinateur)
     fn.afficher_resultats_tir_ordinateur(score_ordinateur, liste_bon_tir_ordinateur, liste_mauvais_tir_ordinateur)
 
+# final scores
 print("\n############################")
 print("           RESULTATS")
 print("############################\n")
-fn.afficher_resultats_tir_joueur(liste_bon_tir_joueur, liste_mauvais_tir_joueur)
-#afficher_resultats_tir_ordinateur()
+fn.afficher_resultats_tir_joueur(score_joueur, liste_bon_tir_joueur, liste_mauvais_tir_joueur)
+fn.afficher_resultats_tir_ordinateur(score_ordinateur, liste_bon_tir_ordinateur, liste_mauvais_tir_ordinateur)
 
-# on ferme la fenêtre turtle
+# we close the turtle window
 tl.exitonclick()
